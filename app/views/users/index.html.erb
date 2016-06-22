@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+ <h1>Listing Users:</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @user.reverse.each do |t| %>
+      <tr>
+        <td><%=t.first_name%></td>
+        <td><%=t.last_name%></td>
+        <td><%=t.email%></td>
+        <td><a href="/users/show/<%=t.id%>">show</a> | <a href="/users/edit/<%=t.id%>">Edit</a> | 
+        <form action = "/users/<%=t.id%>" method = "post">
+			<input type = "hidden" name = "authenticity_token" value = "<%= form_authenticity_token %>">
+			<input type = "hidden" name = "_method" value = "delete">
+			<input type = "submit" value = "delete">
+		</form>
+      </tr>
+      <%end%>
+    </tbody>
+  </table>
+  <a href="/users/new">New User</a>
+</div>
+
+</body>
+</html>
